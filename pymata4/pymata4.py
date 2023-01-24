@@ -1908,7 +1908,7 @@ class Pymata4(threading.Thread):
                 else:
                     time.sleep(self.sleep_tune)
                     # continue
-            except OSError:
+            except (OSError, TypeError, ValueError, AttributeError):
                 pass
 
     def _tcp_receiver(self):
