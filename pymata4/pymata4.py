@@ -402,7 +402,7 @@ class Pymata4(threading.Thread):
 
             # did not find a match anywehre
             raise RuntimeError(f'arduino_instance_id does not match '
-                                           f'a value on the boards.')
+                               f'a value on the boards.')
         except KeyboardInterrupt:
             raise RuntimeError('User Hit Control-C')
 
@@ -468,8 +468,8 @@ class Pymata4(threading.Thread):
 
         """
         return self.digital_pins[pin].current_value[0], \
-               self.digital_pins[pin].current_value[1], \
-               self.digital_pins[pin].event_time
+            self.digital_pins[pin].current_value[1], \
+            self.digital_pins[pin].event_time
 
     def digital_read(self, pin):
         """
@@ -1485,6 +1485,9 @@ class Pymata4(threading.Thread):
         # initiate a list for a potential call back
         reply_data = [PrivateConstants.DHT]
 
+        if len(data) < 9:
+            return
+
         # get the pin and type of the dht
         pin = data[0]
         reply_data.append(pin)
@@ -1493,7 +1496,7 @@ class Pymata4(threading.Thread):
 
         humidity = temperature = 0
 
-        if data[2] == 0: # all is well
+        if data[2] == 0:  # all is well
             humidity = float(data[5] + data[6] / 100)
             if data[3]:
                 humidity *= -1.0
@@ -1732,7 +1735,7 @@ class Pymata4(threading.Thread):
 
         with self.the_sonar_map_lock:
             sonar_pin_entry = self.active_sonar_map[pin_number]
-            #if sonar_pin_entry[0] is not None:
+            # if sonar_pin_entry[0] is not None:
             # check if value changed since last reading
             if sonar_pin_entry[1] != val:
                 sonar_pin_entry[1] = val
