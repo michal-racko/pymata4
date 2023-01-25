@@ -1485,7 +1485,7 @@ class Pymata4(threading.Thread):
         # initiate a list for a potential call back
         reply_data = [PrivateConstants.DHT]
 
-        if len(data) < 9:
+        if len(data) < 2:
             return
 
         # get the pin and type of the dht
@@ -1497,6 +1497,8 @@ class Pymata4(threading.Thread):
         humidity = temperature = 0
 
         if data[2] == 0:  # all is well
+            if len(data) < 9:
+                return
             humidity = float(data[5] + data[6] / 100)
             if data[3]:
                 humidity *= -1.0
