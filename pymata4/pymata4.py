@@ -1833,6 +1833,8 @@ class Pymata4(threading.Thread):
                     sysex_command = self.the_deque.popleft()
                     # retrieve the associated command_dispatch entry for this command
                     dispatch_entry = self.report_dispatch.get(sysex_command)
+                    if not dispatch_entry:
+                        continue
 
                     # get a "pointer" to the method that will process this command
                     method = dispatch_entry[0]
@@ -1874,6 +1876,8 @@ class Pymata4(threading.Thread):
                         pass
 
                     dispatch_entry = self.report_dispatch.get(data)
+                    if not dispatch_entry:
+                        continue
 
                     # this calls the method retrieved from the dispatch table
                     method = dispatch_entry[0]
